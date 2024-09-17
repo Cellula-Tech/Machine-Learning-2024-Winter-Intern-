@@ -7,7 +7,7 @@ This project presents a comprehensive **Exploratory Data Analysis (EDA)** on a *
 ### Key Features
 
 1. **Data Loading and Cleaning**:
-   - Load data from the booking dataset.
+   - Load data from the booking dataset. 
    - Clean column names, correct data types, and handle missing values.
    - Remove duplicates for a cleaner dataset.
 
