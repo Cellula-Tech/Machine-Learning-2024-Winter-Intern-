@@ -1,0 +1,119 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Reservation Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="number"],
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px; /* Equal spacing */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Ensures padding is included in width */
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+        }
+        .link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hotel Reservation Prediction</h1>
+        <form method="post">
+            <label for="adults">Number of Adults:</label>
+            <input type="number" name="adults" required>
+
+            <label for="children">Number of Children:</label>
+            <input type="number" name="children" required>
+
+            <label for="weekend_nights">Number of Weekend Nights:</label>
+            <input type="number" name="weekend_nights" required>
+
+            <label for="week_nights">Number of Week Nights:</label>
+            <input type="number" name="week_nights" required>
+
+            <label for="lead_time">Lead Time:</label>
+            <input type="number" name="lead_time" required>
+
+            <label for="avg_price">Average Price:</label>
+            <input type="number" name="avg_price" step="0.01" required>
+
+            <label for="parking">Car Parking Space:</label>
+            <input type="number" name="parking" required>
+
+            <label for="room_type">Room Type:</label>
+            <input type="text" name="room_type" required>
+
+            <label for="meal_type">Type of Meal:</label>
+            <input type="text" name="meal_type" required>
+
+            <label for="market_segment">Market Segment Type:</label>
+            <input type="text" name="market_segment" required>
+
+            <label for="repeated">Repeated:</label>
+            <input type="number" name="repeated" required>
+
+            <label for="p_c">P-C:</label>
+            <input type="number" name="p_c" required>
+
+            <label for="p_not_c">P-not-C:</label>
+            <input type="number" name="p_not_c" required>
+
+            <label for="special_requests">Special Requests:</label>
+            <input type="text" name="special_requests">
+
+            <button type="submit">Submit</button>
+        </form>
+        <a href="{{ url_for('upload') }}" class="link">Upload CSV</a>
+    </div>
+</body>
+</html>
