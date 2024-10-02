@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../static/styles/main.css">
+    <title>Booking Prediction</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light py-3 fixed-top">
+        <a class="navbar-brand ml-5" href="#">
+            <img src="../static/images/logo.png" alt="Logo" class="img-fluid" style="height: 50px;">
+        </a>
+        <div class="collapse navbar-collapse justify-content-end mr-5" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link h5" href="#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link h5" href="#predict">Predict</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container landing mb-5" id="about">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="alert alert-danger">
+                {% for category, message in messages %}
+                    <div>{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% endwith %}
+        <h1>Modern Hotel & Resort</h1>
+        <p class="description">Your ultimate tool for predicting booking statuses. Our advanced model analyzes various factors to help you understand booking trends and improve your service.</p>
+        <a href="#predict" class="btn btn-primary cta-button">Try it Now</a>
+    </div>
+
+    <div class="container" id="predict">
+        <div class="divider pb-5"></div>
+        <hr class="mb-5">
+        <h1 class="mb-5">Prediction Section</h1>
+        <form action="/predict" method="POST">
+            <div class="form-group pt-3">
+                <label for="adults">Number of Adults:</label>
+                <input type="number" class="form-control" id="adults" name="number_of_adults" required>
+            </div>
+            <div class="form-group">
+                <label for="children">Number of Children:</label>
+                <input type="number" class="form-control" id="children" name="number_of_children" required>
+            </div>
+            <div class="form-group">
+                <label for="weekend_nights">Number of Weekend Nights:</label>
+                <input type="number" class="form-control" id="weekend_nights" name="number of weekend nights" required>
+            </div>
+            <div class="form-group">
+                <label for="week_nights">Number of Week Nights:</label>
+                <input type="number" class="form-control" id="week_nights" name="number of week nights" required>
+            </div>
+            <div class="form-group">
+                <label for="meal">Type of Meal:</label>
+                <select class="form-control" id="meal" name="type_of_meal" required>
+                    <option value="Not Selected">Not Selected</option>
+                    <option value="Meal Plan 1">Meal Plan 1</option>
+                    <option value="Meal Plan 2">Meal Plan 2</option>
+                    <option value="Meal Plan 3">Meal Plan 3</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="parking">Car Parking Space Required:</label>
+                <select class="form-control" id="parking" name="car_parking_space" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="room_type">Room Type:</label>
+                <select class="form-control" id="room_type" name="room_type" required>
+                    <option value="Room_Type 1">Room_Type 1</option>
+                    <option value="Room_Type 2">Room_Type 2</option>
+                    <option value="Room_Type 3">Room_Type 3</option>
+                    <option value="Room_Type 4">Room_Type 4</option>
+                    <option value="Room_Type 5">Room_Type 5</option>
+                    <option value="Room_Type 6">Room_Type 6</option>
+                    <option value="Room_Type 7">Room_Type 7</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="lead time">Lead Time (days):</label>
+                <input type="number" class="form-control" id="lead time" name="lead time" required>
+            </div>
+            <div class="form-group">
+                <label for="market_segment">Market Segment Type:</label>
+                <select class="form-control" id="market_segment" name="market_segment_type" required>
+                    <option value="Offline">Offline</option>
+                    <option value="Online">Online</option>
+                    <option value="Corporate">Corporate</option>
+                    <option value="Aviation">Aviation</option>
+                    <option value="Complementary">Complementary</option>
+                </select>
+            </div>  
+            <div class="form-group">
+                <label for="P-C">Previous Cancellations:</label>
+                <input type="number" class="form-control" id="P-C" name="P-C" required>
+            </div>
+            <div class="form-group">
+                <label for="P-not-C">Previous Non-Cancellations:</label>
+                <input type="number" class="form-control" id="P-not-C" name="P-not-C" required>
+            </div>
+            <div class="form-group">
+                <label for="avg_price">Average Price (Euros):</label>
+                <input type="" class="form-control" id="avg_price" name="average price " required>
+            </div>
+            <div class="form-group">
+                <label for="special requests">Special Requests:</label>
+                <input type="number" class="form-control" id="special requests" name="special requests" required>
+            </div>
+            <div class="form-group">
+                <label for="reservation_date">Date of Reservation:</label>
+                <input type="date" class="form-control" id="reservation_date" name="date_of_reservation" required>
+            </div>
+            <button type="submit" class="btn btn-primary cta-button">Predict</button>
+        </form>
+    </div>
+    <div class="container mt-5 d-flex flex-column align-items-center" id="prediction_result">
+        {% if prediction %}
+        <h1 class="text-center">Prediction Result:</h1>
+        <h3 class="text-center mb-5">{{ prediction }}</h3>
+        {% endif %}
+        {% if error %}
+        <div class="alert alert-danger text-center" role="alert">
+            {{ error }}
+        </div>
+        {% endif %}
+    </div>    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>        
+    <script>
+        // Auto-scroll to prediction result if it exists
+        window.onload = function() {
+            if (document.getElementById('prediction_result').innerHTML.trim() !== '') {
+                document.getElementById('prediction_result').scrollIntoView({ behavior: 'smooth' });
+            }
+        };
+    </script>
+</body>
+</html>
