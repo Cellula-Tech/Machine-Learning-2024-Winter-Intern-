@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Booking Prediction</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            background-image: url("..\\static\\hotel.jpg");
+            background-size: cover;
+            margin: 0; 
+            padding: 20px; 
+        }
+        .container { 
+            max-width: 600px; 
+            margin: auto; 
+            background: rgba(255, 255, 255, 0.748); 
+            padding: 20px; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+        }
+        h1 { 
+            text-align: center; 
+            color: #333; 
+        }
+        input[type="number"], input[type="date"], select, button { 
+            width: 100%; 
+            padding: 10px; 
+            margin: 10px 0; 
+            border-radius: 4px; 
+            border: 1px solid #ccc; 
+        }
+        button { 
+            background-color: #5cb85c; 
+            color: white; 
+            border: none; 
+            cursor: pointer; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hotel Booking Cancellation Prediction</h1>
+        <form id="bookingForm" action="{{url_for('predict')}}" method="post">
+              
+            <label for="adults">Number of Adults:</label>
+            <input type="number" id="adults" name="adults" required>
+
+            <label for="children">Number of Children:</label>
+            <input type="number" id="children" name="children" required>
+
+            <label for="weekend_nights">Number of Weekend Nights:</label>
+            <input type="number" id="weekend_nights" name="weekend_nights" required>
+
+            <label for="week_nights">Number of Week Nights:</label>
+            <input type="number" id="week_nights" name="week_nights" required>
+
+            <label for="meal_plan">Type of Meal:</label>
+            <select id="meal_plan" name="meal_plan" required>
+                <option value="Meal Plan 1">Meal Plan 1</option>
+                <option value="Meal Plan 2">Meal Plan 2</option>
+                <option value="Meal Plan 3">Meal Plan 3</option>
+                <option value="Not Selected">Not Selected</option>
+            </select>
+
+            <label for="car_parking_space">Car Parking Space:</label>
+            <input type="number" id="car_parking_space" name="car_parking_space" required>
+
+            <label for="room_type">Room Type:</label>
+            <select id="room_type" name="room_type" required>
+                <option value="Room Type 1">Room Type 1</option>
+                <option value="Room Type 2">Room Type 2</option>
+                <option value="Room Type 3">Room Type 3</option>
+                <option value="Room Type 4">Room Type 4</option>
+                <option value="Room Type 5">Room Type 5</option>
+                <option value="Room Type 6">Room Type 6</option>
+                <option value="Room Type 7">Room Type 7</option>
+            </select>
+
+            <label for="market_segment">Market Segment Type:</label>
+            <select id="market_segment" name="market_segment" required>
+                <option value="Offline">Offline</option>
+                <option value="Online">Online</option>
+                <option value="Corporate">Corporate</option>
+                <option value="Aviation">Aviation</option>
+                <option value="Complementary">Complementary</option>
+            </select>
+
+            <label for="reservation_date">Date of Reservation:</label>
+            <input type="date" id="reservation_date" name="reservation_date" required>
+
+            <label for="special_requests">Special Requests:</label>
+            <input type="number" id="special_requests" name="special_requests" required>
+           
+            <label for="repeated">Repeated Customer:</label>
+            <input type="number" id="repeated" name="repeated" required>
+
+            <label for="p_c">P-C:</label>
+            <input type="number" id="p_c" name="p_c" required>
+           
+            <label for="p_not_c">P-not-C:</label>
+            <input type="number" id="p_not_c" name="p_not_c" required>
+
+            <label for="average_price">Price:</label>
+            <input type="number" id="average_price" name="average_price" step="0.01" required>
+
+            <button type="submit">Predict Cancellation</button>
+        </form>
+        <p id="predictionResult" style="text-align:center;"></p>
+        {{prediction_text}}
+    </div>
+
+    <script>
+        document.getElementById('bookingForm').addEventListener('submit', function(event) {
+            //event.preventDefault();
+
+            const today = new Date();
+            const reservationDate = new Date(document.getElementById('reservation_date').value);
+
+            // Calculate lead time by subtracting the reservation date from today
+            const leadTime = Math.floor((today - reservationDate) / (1000 * 60 * 60 * 24));
+
+            // Get day and month from the reservation date
+            const day = reservationDate.getDate();
+            const month = reservationDate.getMonth() + 1; // Months are zero-based in JavaScript
+
+            const adults = document.getElementById('adults').value;
+            const children = document.getElementById('children').value;
+            const weekendNights = document.getElementById('weekend_nights').value;
+            const weekNights = document.getElementById('week_nights').value;
+            const mealPlan = document.getElementById('meal_plan').value;
+            const carParkingSpace = document.getElementById('car_parking_space').value;
+            const roomType = document.getElementById('room_type').value;
+            const marketSegment = document.getElementById('market_segment').value;
+            const specialRequests = document.getElementById('special_requests').value;
+            const repeated = document.getElementById('repeated').value;
+            const p_c = document.getElementById('p_c').value;
+            const p_not_c = document.getElementById('p_not_c').value;
+            const averagePrice = document.getElementById('average_price').value;
+
+            // Prepare data for model prediction
+            const formData = {
+                lead_time: leadTime,
+                day: day,
+                month: month,
+                adults: adults,
+                children: children,
+                weekend_nights: weekendNights,
+                week_nights: weekNights,
+                meal_plan: mealPlan,
+                car_parking_space: carParkingSpace,
+                room_type: roomType,
+                market_segment: marketSegment,
+                special_requests: specialRequests,
+                repeated: repeated,
+                p_c: p_c,
+                p_not_c: p_not_c,
+                average_price: averagePrice
+            };
+            
+            // For now, simulate a prediction (replace this with a call to your ML model)
+            //const isCancelled = Math.random() > 0.5; // Dummy logic
+
+            //document.getElementById('predictionResult').innerText =
+              //  `Your booking is likely to be ${isCancelled ? 'cancelled' : 'confirmed'}.`;
+        });
+    </script>
+</body>
+</html>
