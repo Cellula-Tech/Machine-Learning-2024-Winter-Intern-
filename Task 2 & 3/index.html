@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Booking Prediction</title>
+    <link rel="stylesheet" type="text/css" href="static/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Hotel Booking Cancellation Prediction</h1>
+        <form action="/predict" method="POST">
+            <div class="form-group">
+                <label>Number of Weekend Nights</label>
+                <input type="number" name="weekend_nights" required>
+            </div>
+            <div class="form-group">
+                <label>Number of Week Nights</label>
+                <input type="number" name="week_nights" required>
+            </div>
+            <div class="form-group">
+                <label>Car Parking Space</label>
+                <input type="number" name="parking_space" required>
+            </div>
+            <div class="form-group">
+                <label>Lead Time</label>
+                <input type="number" name="lead_time" required>
+            </div>
+            <div class="form-group">
+                <label>Repeated Guest</label>
+                <input type="number" name="repeated" required>
+            </div>
+            <div class="form-group">
+                <label>P-C</label>
+                <input type="number" name="p_c" required>
+            </div>
+            <div class="form-group">
+                <label>P-not-C</label>
+                <input type="number" name="p_not_c" required>
+            </div>
+            <div class="form-group">
+                <label>Average Price</label>
+                <input type="number" step="0.01" name="avg_price" required>
+            </div>
+            <div class="form-group">
+                <label>Special Requests</label>
+                <input type="number" name="special_requests" required>
+            </div>
+            <div class="form-group">
+                <label>Total Guests</label>
+                <input type="number" name="total_guest" required>
+            </div>
+            <div class="form-group">
+                <label>Room Type</label>
+                <select name="room_type">
+                    <option value="0">Room Type 6</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Meal Plan</label>
+                <select name="meal_plan">
+                    <option value="0">Meal Plan 2</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Market Segment - Complementary</label>
+                <input type="number" name="market_segment_complementary" required>
+            </div>
+            <div class="form-group">
+                <label>Market Segment - Corporate</label>
+                <input type="number" name="market_segment_corporate" required>
+            </div>
+            <div class="form-group">
+                <label>Market Segment - Offline</label>
+                <input type="number" name="market_segment_offline" required>
+            </div>
+            <div class="form-group">
+                <label>Market Segment - Online</label>
+                <input type="number" name="market_segment_online" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Predict</button>
+            </div>
+        </form>
+        {% if prediction_text %}
+        <h2>{{ prediction_text }}</h2>
+        {% endif %}
+    </div>
+</body>
+</html>
