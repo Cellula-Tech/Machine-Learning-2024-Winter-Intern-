@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+      <head>
+        <meta charset="utf-8">
+        <title>Hotel Reservation Checker</title>
+        <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+		
+		<style>
+			.content {
+			  max-width: 500px;
+			  margin: auto;
+			}
+			
+			
+			.bg-img{
+		width: 100%;
+		height: 100vh;
+		background-size: cover;
+		background-position: center;
+			}
+			</style>
+    </head>
+	
+<body>
+<div class="bg-img">
+<div class="content">
+    <body>
+  
+        <h1>Hotel Prediction</h1>
+        <form action="{{url_for('predict')}}" method="post">
+            <input type="text" name="number of adults" placeholder="Number of adults" required="required">
+            <input type="text" name="number of children" placeholder="Number of children" required="required">
+            <input type="text" name="number of weekend nights" placeholder="Number of weekend nights" required="required">
+            <input type="text" name="number of week nights" placeholder="Number of week nights" required="required">
+            <input type="text" name="type of meal" placeholder="Type of meal" required="required">
+            <input type="text" name="car parking space" placeholder="Car parking space" required="required">
+            <input type="text" name="room type" placeholder="Room type" required="required">
+            <input type="text" name="lead time" placeholder="Lead time" required="required">
+            <input type="text" name="market segment type" placeholder="Market segment type" required="required">
+            <input type="text" name="repeated" placeholder="Repeated" required="required">
+            <input type="text" name="P-C" placeholder="P-C" required="required">
+            <input type="text" name="P-not-C" placeholder="P-not-C" required="required">
+            <input type="text" name="average price" placeholder="Average price" required="required">
+            <input type="text" name="special requests" placeholder="Special requests" required="required">
+            <input type="text" name="Year" placeholder="Year" required="required">
+            <input type="text" name="Month" placeholder="Month" required="required">
+            <input type="text" name="Day" placeholder="Day" required="required">
+            <button type="submit" class="btn btn-primary btn-block btn-large">Run</button>
+        </form>
+        <br>
+        <br>
+        {{ prediction_text }}   		
+</div>
+</div>
+</html>
