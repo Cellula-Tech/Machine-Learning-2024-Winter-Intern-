@@ -10,6 +10,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
+import xgboost as xgb
 from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import accuracy_score
@@ -129,15 +130,6 @@ X_test_transformed = preprocessor.transform(X_test)
 print("Transformed X_train shape:", X_train_transformed.shape)
 print("Transformed X_test shape:", X_test_transformed.shape)
 
-import pandas as pd
-from sklearn.model_selection import train_test_split
-import xgboost as xgb
-from sklearn.model_selection import GridSearchCV
-from sklearn.metrics import accuracy_score
-
-# Assuming 'data' is your DataFrame with features and target
-# Ensure you have a DataFrame called 'data' with a 'booking status' column
-
 
 features = data.drop(['booking status', 'Booking_ID', 'type of meal', 'P-not-C', 'P-C', 'repeated',
                       'car parking space', 'number of adults', 'number of children',
@@ -200,7 +192,7 @@ import pickle
 
 # Save the trained model
 with open('best_xgb_model.pkl', 'wb') as f:
-    pickle.dump(best_xgb, f) # Changed best_rf to best_xgb
+    pickle.dump(best_xgb, f) 
 
 from flask import Flask, request, jsonify
 import numpy as np
@@ -304,5 +296,5 @@ def start_ngrok():
 
 if __name__ == '__main__':
     threading.Thread(target=start_ngrok).start()
-    app.run(port=5016)  # Make sure app.run uses the same port as ngrok
+    app.run(port=5016)  
 
