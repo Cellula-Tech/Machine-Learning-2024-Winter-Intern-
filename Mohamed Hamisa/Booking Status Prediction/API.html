@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miso Travel</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-image: url('https://static.prod.r53.tablethotels.com/media/hotels/slideshow_images_staged/large/1099265.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 48px;
+            color: #ffffff;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            margin-bottom: 30px;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            color: #333;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            color: #ff4500; /* Bright color for text */
+            padding: 10px;
+        }
+
+        .loading {
+            font-size: 18px;
+            color: #007BFF;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Miso Travel</h1>
+<form id="predictionForm">
+    <label for="lead_time">Lead Time</label>
+    <input type="number" id="lead_time" name="lead time" required>
+
+    <label for="average_price">Average Price</label>
+    <input type="number" id="average_price" name="average price" step="0.01" required>
+
+    <label for="Total_Guests">Total Guests</label>
+    <input type="number" id="Total_Guests" name="Total Guests" required>
+
+    <label for="Total_Nights">Total Nights</label>
+    <input type="number" id="Total_Nights" name="Total Nights" required>
+
+    <label for="Special_Request_Count">Special Request Count</label>
+    <input type="number" id="Special_Request_Count" name="Special Request Count" required>
+
+    <label for="Ordered_Meal_Type">Ordered Meal Type</label>
+    <select id="Ordered_Meal_Type" name="Ordered Meal Type" required>
+        <option value="Meal Plan 1">Meal Plan 1</option>
+        <option value="Meal Plan 2">Meal Plan 2</option>
+        <option value="Not Selected">Not Selected</option>
+    </select>
+
+    <label for="market_segment_type">Market Segment Type</label>
+    <select id="market_segment_type" name="market segment type" required>
+        <option value="Online">Online</option>
+        <option value="Offline">Offline</option>
+        <option value="Corporate">Corporate</option>
+        <option value="Others">Others</option>
+    </select>
+
+    <label for="room_type">Room Type</label>
+    <select id="room_type" name="room type" required>
+        <option value="Room_Type 1">Room_Type 1</option>
+        <option value="Room_Type 2">Room_Type 2</option>
+        <option value="Room_Type 3">Room_Type 3</option>
+        <option value="Room_Type 4">Room_Type 4</option>
+        <option value="Room_Type 5">Room_Type 5</option>
+        <option value="Room_Type 6">Room_Type 6</option>
+        <option value="Room_Type 7">Room_Type 7</option>
+    </select>
+
+    <button type="submit">Predict</button>
+</form>
+
+<div class="result" id="result"></div>
+
+<script>
+    document.getElementById('predictionForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const data = {
+            'lead time': parseInt(document.getElementById('lead_time').value, 10),
+            'average price': parseFloat(document.getElementById('average_price').value),
+            'Total Guests': parseInt(document.getElementById('Total_Guests').value, 10),
+            'Total Nights': parseInt(document.getElementById('Total_Nights').value, 10),
+            'Special Request Count': parseInt(document.getElementById('Special_Request_Count').value, 10),
+            'Ordered Meal Type': document.getElementById('Ordered_Meal_Type').value,
+            'market segment type': document.getElementById('market_segment_type').value,
+            'room type': document.getElementById('room_type').value
+        };
+
+        document.getElementById('result').innerText = "Processing...";
+        
+        try {
+            const response = await fetch('https://2563-34-168-105-98.ngrok-free.app/predict_booking', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                document.getElementById('result').innerText = 
+                    Booking Status: ${result['booking status'] === 'canceled' ? 'Canceled' : 'Not Canceled'};
+            } else {
+                document.getElementById('result').innerText = Error: ${result.error};
+            }
+        } catch (error) {
+            document.getElementById('result').innerText = Error: ${error.message};
+        }
+    });
+</script>
+
+</body>
+</html>
