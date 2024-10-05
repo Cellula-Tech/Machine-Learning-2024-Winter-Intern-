@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Forest Prediction</title>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Random Forest Prediction</h1>
+        <form action="/predict" method="post">
+            <label for="feature_0">Feature 0:</label>
+            <input type="text" name="feature_0" required>
+            <label for="feature_1">Feature 1:</label>
+            <input type="text" name="feature_1" required>
+            <label for="feature_2">Feature 2:</label>
+            <input type="text" name="feature_2" required>
+            <label for="feature_3">Feature 3:</label>
+            <input type="text" name="feature_3" required>
+            <label for="feature_4">Feature 4:</label>
+            <input type="text" name="feature_4" required>
+            <label for="feature_5">Feature 5:</label>
+            <input type="text" name="feature_5" required>
+            <label for="feature_6">Feature 6:</label>
+            <input type="text" name="feature_2" required>
+            <label for="feature_7">Feature 7:</label>
+            <input type="text" name="feature_7" required>
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if prediction_text %}
+            <h2>{{ prediction_text }}</h2>
+        {% endif %}
+
+        <h2>Feature Importance</h2>
+        <table>
+            <tr>
+                <th>Feature</th>
+                <th>Importance</th>
+            </tr>
+            <tr>
+                <td>feature_1</td>
+                <td>0.767198</td>
+            </tr>
+            <tr>
+                <td>feature_0</td>
+                <td>0.202160</td>
+            </tr>
+            <tr>
+                <td>feature_2</td>
+                <td>0.020403</td>
+            </tr>
+            <tr>
+                <td>feature_3</td>
+                <td>0.010240</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
