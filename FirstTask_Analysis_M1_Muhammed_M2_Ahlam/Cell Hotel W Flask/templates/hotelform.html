@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Hotel Cancellation Prediction</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="header-text">Hotel Cancellation Prediction</h1>
+        <p class="header-subtext">Predict if you will cancel your reservation or not</p>
+        
+        <form action='/predictpage' method="POST">
+            <div class="form-group">
+                <label for="type_of_meal">Type of Meal Plan</label>
+                <select id="type_of_meal" name="type_of_meal">
+                    <option value="1">Meal Plan 1</option>
+                    <option value="2">Meal Plan 2</option>
+                    <option value="0">Not Selected</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Car Parking Space</label>
+                <div class="radio-group">
+                    <input type="radio" id="car_parking_space_0" name="car_parking_space" value="0">
+                    <label for="car_parking_space_0">No</label>
+                    <input type="radio" id="car_parking_space_1" name="car_parking_space" value="1" checked>
+                    <label for="car_parking_space_1">Yes</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="room_type">Room Type</label>
+                <select id="room_type" name="room_type">
+                    <option value="1">Room Type 1</option>
+                    <option value="2">Room Type 2</option>
+                    <option value="4">Room Type 4</option>
+                    <option value="5">Room Type 5</option>
+                    <option value="6">Room Type 6</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="market_segment_type">Market Segment Type</label>
+                <select id="market_segment_type" name="market_segment_type">
+                    <option value="0">Offline</option>
+                    <option value="1">Online</option>
+                    <option value="2">Corporate</option>
+                    <option value="3">Aviation</option>
+                    <option value="4">Complementary</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Repeated Customer</label>
+                <div class="radio-group">
+                    <input type="radio" id="repeated_0" name="repeated" value="0">
+                    <label for="repeated_0">No</label>
+                    <input type="radio" id="repeated_1" name="repeated" value="1" checked>
+                    <label for="repeated_1">Yes</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="lead_time">Lead Time (in days)</label>
+                <input id="lead_time" name="lead_time" type="number" required>
+            </div>
+
+            <div class="form-group">
+                <label for="average_price">Average Price (in currency unit)</label>
+                <input id="average_price" name="average_price" type="number" step="0.01" required>
+            </div>
+
+            <button type="submit">Predict Probability</button>
+        </form>
+
+        <div class="prediction">{{pred}}</div>
+    </div>
+</body>
+</html>
