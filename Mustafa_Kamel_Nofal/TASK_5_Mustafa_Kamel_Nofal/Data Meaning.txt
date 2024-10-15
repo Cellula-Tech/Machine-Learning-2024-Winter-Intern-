@@ -1,0 +1,37 @@
+User ID		Unique identifier for each user.
+User Name	Name of the user.
+Driver Name	Name of the driver.
+Car Condition	Condition of the car (e.g., clean, dirty, damaged).
+Weather		
+		Weather conditions at the time of the ride (e.g., sunny, rainy, snowy).
+Traffic Condition	
+		Traffic conditions at the time of the ride (e.g., light, moderate, heavy).
+key		
+		A unique identifier for each ride.
+fare_amount	
+		The fare amount charged for the ride.
+pickup_datetime	
+		Date and time when the ride started.
+pickup_longitude	
+		Longitude coordinate of the pickup location.
+pickup_latitude		
+		Latitude coordinate of the pickup location.
+dropoff_longitude	
+		Longitude coordinate of the dropoff location.
+dropoff_latitude	
+		Latitude coordinate of the dropoff location.
+passenger_count			
+		Number of passengers in the ride.
+
+hour		Hour of the day when the ride started.
+day		Day of the month when the ride started.
+month		Month when the ride started.
+weekday		Day of the week when the ride started.
+year		Year when the ride started.
+jfk_dist	Distance from the pickup or dropoff location to John F. Kennedy International Airport (JFK).
+ewr_dist	Distance from the pickup or dropoff location to Newark Liberty International Airport (EWR).
+lga_dist	Distance from the pickup or dropoff location to LaGuardia Airport (LGA).
+sol_dist	Distance from the pickup or dropoff location to Statue of Liberty.
+nyc_dist	Distance from the pickup or dropoff location to New York City center.
+distance	Total distance traveled during the ride.
+bearing		Direction of travel (bearing) during the ride.
