@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="form-container upload-container"> 
+        <h1>Upload CSV for Prediction</h1>
+        <form action="{% url 'upload_csv' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="file">Upload CSV file:</label>
+                <input type="file" id="file" name="file" accept=".csv" required>
+            </div>
+            <button type="submit">Submit</button>
+            {% if error %}
+            <p style="color: red;">{{ error }}</p>
+            {% endif %}
+        </form>
+
+        {% if mean_fare %}
+            <h2>Analysis</h2>
+            <h3>Mean Predicted Fare: {{ mean_fare }}</h3>
+            <h3>Total Predicted Fare: {{ total_fare }}</h3>
+            <img src="{{ plot_url }}" alt="Predicted Fare Plot" />
+
+            <form action="{% url 'download_csv' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="csv_data" value="{{ results_df|safe }}">
+                <button type="submit">Download Predicted CSV</button>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}

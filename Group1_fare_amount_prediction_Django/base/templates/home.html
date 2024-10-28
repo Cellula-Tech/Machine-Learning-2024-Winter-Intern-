@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="form-container">
+        <h1>Car Fare Prediction</h1>
+        <form action="{% url 'home' %}" method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="passenger_count"><i class="fas fa-user"></i> Passenger Count:</label>
+                <input type="number" id="passenger_count" name="passenger_count" required>
+            </div>
+
+            <div class="form-group">
+                <label for="hour"><i class="fas fa-clock"></i> Hour of the day (24-hour time):</label>
+                <input type="number" id="hour" name="hour" min="0" max="23" required>
+            </div>
+
+            <div class="form-group">
+                <label for="day"><i class="fas fa-calendar-day"></i> Day:</label>
+                <input type="number" id="day" name="day" min="1" max="31" required>
+            </div>
+
+            <div class="form-group">
+                <label for="month"><i class="fas fa-calendar-alt"></i> Month:</label>
+                <input type="number" id="month" name="month" min="1" max="12" required>
+            </div>
+
+            <div class="form-group">
+                <label for="weekday"><i class="fas fa-calendar-week"></i> Weekday:</label>
+                <select id="weekday" name="weekday" required>
+                    <option value="0">Monday</option>
+                    <option value="1">Tuesday</option>
+                    <option value="2">Wednesday</option>
+                    <option value="3">Thursday</option>
+                    <option value="4">Friday</option>
+                    <option value="5">Saturday</option>
+                    <option value="6">Sunday</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="year"><i class="fas fa-calendar"></i> Year:</label>
+                <input type="number" id="year" name="year" required>
+            </div>
+
+            <div class="form-group">
+                <label for="distance"><i class="fas fa-road"></i> Distance (km):</label>
+                <input type="number" id="distance" name="distance" step="0.1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="bearing"><i class="fas fa-compass"></i> Bearing:</label>
+                <input type="number" id="bearing" name="bearing" step="0.1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="car_condition"><i class="fas fa-car"></i> Car Condition:</label>
+                <select id="car_condition" name="car_condition" required>
+                    <option value="Bad">Bad</option>
+                    <option value="Very Good">Very Good</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="weather"><i class="fas fa-cloud-sun"></i> Weather:</label>
+                <select id="weather" name="weather" required>
+                    <option value="sunny">Sunny</option>
+                    <option value="windy">Windy</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="traffic_condition"><i class="fas fa-traffic-light"></i> Traffic Condition:</label>
+                <select id="traffic_condition" name="traffic_condition" required>
+                    <option value="Light">Light</option>
+                    <option value="Moderate">Moderate</option>
+                    <option value="Heavy">Heavy</option>
+                </select>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+        {% if prediction is not None %}
+        <h2>Prediction: {{ prediction }}</h2>
+        {% endif %}
+    </div>
+{% endblock %}
